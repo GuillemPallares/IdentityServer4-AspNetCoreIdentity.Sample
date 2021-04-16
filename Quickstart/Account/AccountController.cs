@@ -8,6 +8,7 @@ using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
+using IdentityServer4_AspNetCoreIdentity.Models.AccountViewModels;
 using IdentityServer4_AspNetCoreIdentity.Template.Models;
 using IdentityServer4_AspNetCoreIdentity.Template.Services;
 using Microsoft.AspNetCore.Authentication;
@@ -156,6 +157,113 @@ namespace IdentityServerHost.Quickstart.UI
             return View(vm);
         }
 
+           // GET: /Account/Register
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register(string returnUrl)
+        {
+             // build a model so we know what to show on the login page
+            var vm = await BuildRegisterViewModelAsync(returnUrl);
+
+            return View(vm);
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel model, string button)
+        {
+          // check if we are in the context of an authorization request
+            var context = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
+
+            // the user clicked the "cancel" button
+            if (button != "register")
+            {
+                if (context != null)
+                {
+                    // if the user cancels, send a result back into IdentityServer as if they 
+                    // denied the consent (even if this client does not require consent).
+                    // this will send back an access denied OIDC error response to the client.
+                    await _interaction.DenyAuthorizationAsync(context, AuthorizationError.AccessDenied);
+
+                    // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
+                    if (context.IsNativeClient())
+                    {
+                        // The client is native, so this change in how to
+                        // return the response is for better UX for the end user.
+                        return this.LoadingPage("Redirect", model.ReturnUrl);
+                    }
+
+                    return Redirect(model.ReturnUrl);
+                }
+                else
+                {
+                    // since we don't have a valid context, then we just go back to the home page
+                    return Redirect("~/");
+                }
+            }
+
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
+                    // Send an email with this link
+                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+                    //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
+                    //    "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    // TODO: Add UserRegister event.
+                    // await _events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id, user.UserName, clientId: context?.Client.ClientId));
+
+                    if (context != null)
+                    {
+
+                        if (context.IsNativeClient())
+                        {
+                            // The client is native, so this change in how to
+                            // return the response is for better UX for the end user.
+                            return this.LoadingPage("Redirect", model.ReturnUrl);
+                        }
+
+                        // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
+                        return Redirect(model.ReturnUrl);
+                    }
+
+                    // request for a local page
+                    if (Url.IsLocalUrl(model.ReturnUrl))
+                    {
+                        return Redirect(model.ReturnUrl);
+                    }
+                    else if (string.IsNullOrEmpty(model.ReturnUrl))
+                    {
+                        return Redirect("~/");
+                    }
+                    else
+                    {
+                        // user might have clicked on a malicious link - should be logged
+                        throw new Exception("invalid return URL");
+                    }
+                }
+
+                // TODO: Add UserRegister Failed Event
+                // await _events.RaiseAsync(new UserLoginFailureEvent(model.Username, "invalid credentials", clientId:context?.Client.ClientId));
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            // something went wrong, show form with error
+            var vm = await BuildRegisterViewModelAsync(model);
+            return View(vm);
+        }
+
         
         /// <summary>
         /// Show logout page
@@ -283,6 +391,37 @@ namespace IdentityServerHost.Quickstart.UI
             var vm = await BuildLoginViewModelAsync(model.ReturnUrl);
             vm.Username = model.Username;
             vm.RememberLogin = model.RememberLogin;
+            return vm;
+        }
+        private async Task<RegisterViewModel> BuildRegisterViewModelAsync(string returnUrl)
+        {
+            var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
+            if (context?.IdP != null && await _schemeProvider.GetSchemeAsync(context.IdP) != null)
+            {
+                var local = context.IdP == IdentityServer4.IdentityServerConstants.LocalIdentityProvider;
+
+                // this is meant to short circuit the UI and only trigger the one external IdP
+                var vm = new RegisterViewModel
+                {
+                    ReturnUrl = returnUrl,
+                    Username = context?.LoginHint,
+                };
+
+                return vm;
+            }
+
+
+            return new RegisterViewModel
+            {
+                ReturnUrl = returnUrl,
+                Username = context?.LoginHint,
+            };
+        }
+
+        private async Task<RegisterViewModel> BuildRegisterViewModelAsync(RegisterInputModel model)
+        {
+            var vm = await BuildRegisterViewModelAsync(model.ReturnUrl);
+            vm.Username = model.Username;
             return vm;
         }
 
