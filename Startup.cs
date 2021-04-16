@@ -3,9 +3,9 @@
 
 
 using IdentityServer4;
-using IdentityServer4_AspNetCoreIdentity.Template.Data;
-using IdentityServer4_AspNetCoreIdentity.Template.Models;
-using IdentityServer4_AspNetCoreIdentity.Template.Services;
+using IdentityServerHost.Data;
+using IdentityServerHost.Models;
+using IdentityServerHost.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -14,7 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace IdentityServer4_AspNetCoreIdentity.Template
+namespace IdentityServerHost
 {
     public class Startup
     {

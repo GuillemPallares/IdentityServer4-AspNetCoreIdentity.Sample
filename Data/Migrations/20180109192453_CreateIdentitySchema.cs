@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 
-namespace IdentityServer4_AspNetCoreIdentity.Template.Data.Migrations
+namespace IdentityServerHost.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

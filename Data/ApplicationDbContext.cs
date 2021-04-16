@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using IdentityServer4_AspNetCoreIdentity.Template.Models;
+using IdentityServerHost.Models;
 
-namespace IdentityServer4_AspNetCoreIdentity.Template.Data
+namespace IdentityServerHost.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

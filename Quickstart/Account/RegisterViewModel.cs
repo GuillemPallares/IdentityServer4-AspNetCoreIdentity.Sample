@@ -1,4 +1,4 @@
-namespace IdentityServer4_AspNetCoreIdentity.Models.AccountViewModels
+namespace IdentityServerHost.Models.AccountViewModels
 {
     public class RegisterViewModel : RegisterInputModel
     {

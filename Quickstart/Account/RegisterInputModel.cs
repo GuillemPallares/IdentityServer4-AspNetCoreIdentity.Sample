@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IdentityServer4_AspNetCoreIdentity.Models.AccountViewModels
+namespace IdentityServerHost.Models.AccountViewModels
 {
     public class RegisterInputModel
     {
