@@ -5,6 +5,7 @@
 using IdentityServer4;
 using IdentityServer4_AspNetCoreIdentity.Template.Data;
 using IdentityServer4_AspNetCoreIdentity.Template.Models;
+using IdentityServer4_AspNetCoreIdentity.Template.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -54,6 +55,10 @@ namespace IdentityServer4_AspNetCoreIdentity.Template
 
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
+
+            services.AddTransient<IEmailSender, AuthMessageSender>();
+            services.AddTransient<ISmsSender, AuthMessageSender>();
+
 
             services.AddAuthentication()
                 .AddGoogle(options =>
