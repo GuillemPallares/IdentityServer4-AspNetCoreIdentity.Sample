@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.2](https://github.com/GuillemPallares/IdentityServer4-AspNetCoreIdentity.Template/compare/v0.0.1...v0.0.2) (2021-04-18)
+
+
+### Features
+
+* **Manage:** Added Manage Feature. ([9cac5c0](https://github.com/GuillemPallares/IdentityServer4-AspNetCoreIdentity.Template/commit/9cac5c0dc1e0189b2a0d99c0a53e48127275d05f))
+
 ### 0.0.1 (2021-04-16)
 
 
