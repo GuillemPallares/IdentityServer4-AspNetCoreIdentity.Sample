@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.3](https://github.com/GuillemPallares/IdentityServer4-AspNetCoreIdentity.Template/compare/v0.0.2...v0.0.3) (2021-04-18)
+
+
+### Features
+
+* **Login:** Added Confirm Email. ([83d1de9](https://github.com/GuillemPallares/IdentityServer4-AspNetCoreIdentity.Template/commit/83d1de9085cc170d0bfd3fb3c47629f8a8667e7f))
+
 ### [0.0.2](https://github.com/GuillemPallares/IdentityServer4-AspNetCoreIdentity.Template/compare/v0.0.1...v0.0.2) (2021-04-18)
 
 
