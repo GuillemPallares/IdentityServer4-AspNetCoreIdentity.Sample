@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/GuillemPallares/IdentityServer4-AspNetCoreIdentity.Template/compare/v0.0.5...v0.0.6) (2021-04-18)
+
+
+### Features
+
+* updated to Identity Server 4.1.0 ([28eceee](https://github.com/GuillemPallares/IdentityServer4-AspNetCoreIdentity.Template/commit/28eceee4f07123b1865c6bf29fcdf1799f2739ee))
+
+
+### Bug Fixes
+
+* **Login:** Fixed not initializing two factor flow. ([b3e8511](https://github.com/GuillemPallares/IdentityServer4-AspNetCoreIdentity.Template/commit/b3e8511fd737dcd60abef9ae2fa5fd6c32c9c3a8))
+
 ### [0.0.5](https://github.com/GuillemPallares/IdentityServer4-AspNetCoreIdentity.Template/compare/v0.0.4...v0.0.5) (2021-04-18)
 
 
