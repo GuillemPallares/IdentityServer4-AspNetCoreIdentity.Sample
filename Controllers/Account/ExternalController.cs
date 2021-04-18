@@ -8,6 +8,7 @@ using IdentityServer4;
 using IdentityServer4.Events;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
+using IdentityServerHost.Models;
 using IdentityServerHost.Models.Account;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -16,7 +17,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace IdentityServerHost.Models.Account
+namespace IdentityServerHost.Controllers
 {
     [SecurityHeaders]
     [AllowAnonymous]
