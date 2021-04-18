@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/GuillemPallares/IdentityServer4-AspNetCoreIdentity.Template/compare/v0.0.3...v0.0.4) (2021-04-18)
+
+
+### Features
+
+* **Login:** Added Forgot Password. ([20b604d](https://github.com/GuillemPallares/IdentityServer4-AspNetCoreIdentity.Template/commit/20b604d4ee02d5cfee2ade7c91f54893cc4684c4))
+
 ### [0.0.3](https://github.com/GuillemPallares/IdentityServer4-AspNetCoreIdentity.Template/compare/v0.0.2...v0.0.3) (2021-04-18)
 
 
