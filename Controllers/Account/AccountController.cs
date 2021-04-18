@@ -148,6 +148,10 @@ namespace IdentityServerHost.Controllers
                         throw new Exception("invalid return URL");
                     }
                 }
+                if (result.RequiresTwoFactor)
+                {
+                    return RedirectToAction(nameof(SendCode), new { ReturnUrl = model.ReturnUrl, RememberMe = model.RememberLogin });
+                }
 
                 await _events.RaiseAsync(new UserLoginFailureEvent(model.Username, "invalid credentials", clientId:context?.Client.ClientId));
                 ModelState.AddModelError(string.Empty, AccountOptions.InvalidCredentialsErrorMessage);
