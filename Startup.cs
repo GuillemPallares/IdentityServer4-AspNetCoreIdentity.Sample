@@ -3,7 +3,9 @@
 
 
 using IdentityServer4;
+using IdentityServer4.Services;
 using IdentityServerHost.Data;
+using IdentityServerHost.Events.Sinks;
 using IdentityServerHost.Models;
 using IdentityServerHost.Services;
 using Microsoft.AspNetCore.Builder;
@@ -58,6 +60,8 @@ namespace IdentityServerHost
 
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            
+            services.AddScoped<IEventSink, ConsoleEventSink>();
 
 
             services.AddAuthentication()
