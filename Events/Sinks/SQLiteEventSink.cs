@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using IdentityServer4.Events;
 using IdentityServer4.Services;
@@ -8,11 +9,11 @@ using Serilog.Sinks.SystemConsole.Themes;
 
 namespace IdentityServerHost.Events.Sinks
 {
-    class ConsoleEventSink : IEventSink
+    class SQLiteEventSink : IEventSink
     {
         public readonly Logger _log;
 
-        public ConsoleEventSink()
+        public SQLiteEventSink()
         {
             _log = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -20,10 +21,8 @@ namespace IdentityServerHost.Events.Sinks
                 .MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Information)
                 .MinimumLevel.Override("System", LogEventLevel.Warning)
                 .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Information)
-                .Enrich.WithThreadId()
-                .Enrich.WithEnvironmentName()
                 .Enrich.FromLogContext()
-                .WriteTo.Console(outputTemplate: "[{EnvironmentName}]{NewLine}[{Timestamp:HH:mm:ss} {Level}][{ThreadId}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Code)
+                // .WriteTo.SQLite()
                 .CreateLogger();
         }
 
@@ -47,5 +46,6 @@ namespace IdentityServerHost.Events.Sinks
 
             return Task.CompletedTask;
         }
+
     }
 }

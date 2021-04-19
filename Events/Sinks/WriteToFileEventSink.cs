@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using IdentityServer4.Events;
 using IdentityServer4.Services;
@@ -8,11 +9,11 @@ using Serilog.Sinks.SystemConsole.Themes;
 
 namespace IdentityServerHost.Events.Sinks
 {
-    class ConsoleEventSink : IEventSink
+    class WritoTofileEventSink : IEventSink
     {
         public readonly Logger _log;
 
-        public ConsoleEventSink()
+        public WritoTofileEventSink()
         {
             _log = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -23,7 +24,13 @@ namespace IdentityServerHost.Events.Sinks
                 .Enrich.WithThreadId()
                 .Enrich.WithEnvironmentName()
                 .Enrich.FromLogContext()
-                .WriteTo.Console(outputTemplate: "[{EnvironmentName}]{NewLine}[{Timestamp:HH:mm:ss} {Level}][{ThreadId}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Code)
+                .WriteTo.File(
+                    "identityserver.txt",
+                    outputTemplate: "[{EnvironmentName}]{NewLine}[{Timestamp:HH:mm:ss} {Level}][{ThreadId}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}",
+                    fileSizeLimitBytes: 1_000_000,
+                    rollOnFileSizeLimit: true,
+                    shared: true,
+                    flushToDiskInterval: TimeSpan.FromSeconds(1))
                 .CreateLogger();
         }
 
