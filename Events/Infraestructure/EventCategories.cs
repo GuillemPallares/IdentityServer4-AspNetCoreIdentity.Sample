@@ -15,6 +15,11 @@ namespace IdentityServerHost.Events.Infraestructure
         public const string Authentication = "Authentication";
 
         /// <summary>
+        /// Registration related events
+        /// </summary>
+        public const string Registration = "Registration";
+
+        /// <summary>
         /// Token related events
         /// </summary>
         public const string Token = "Token";

@@ -223,8 +223,7 @@ namespace IdentityServerHost.Controllers
                     //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
                     //    "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    // TODO: Add UserRegister event.
-                    // await _events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id, user.UserName, clientId: context?.Client.ClientId));
+                    await _events.RaiseAsync(new UserRegisterSuccessEvent(user.UserName, user.Id, user.UserName, clientId: context?.Client.ClientId));
 
                     if (context != null)
                     {
@@ -256,12 +255,8 @@ namespace IdentityServerHost.Controllers
                     }
                 }
 
-                // TODO: Add UserRegister Failed Event
-                // await _events.RaiseAsync(new UserLoginFailureEvent(model.Username, "invalid credentials", clientId:context?.Client.ClientId));
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+                await _events.RaiseAsync(new UserRegisterFailureEvent(model.Username, "invalid credentials", clientId:context?.Client.ClientId));
+                AddErrors(result);
             }
 
             // something went wrong, show form with error

@@ -14,8 +14,6 @@ namespace IdentityServerHost.Events.Infraestructure
 
         public const int UserLoginSuccess = AuthenticationEventsStart + 0;
         public const int UserLoginFailure = AuthenticationEventsStart + 1;
-        public const int UserRegisterSuccess = AuthenticationEventsStart + 2;
-        public const int UserRegisterFailure = AuthenticationEventsStart + 3;
         public const int UserLogoutSuccess = AuthenticationEventsStart + 8;
         public const int UserLogoutFailure = AuthenticationEventsStart + 9;
 
@@ -24,6 +22,14 @@ namespace IdentityServerHost.Events.Infraestructure
         
         public const int ApiAuthenticationSuccess = AuthenticationEventsStart + 20;
         public const int ApiAuthenticationFailure = AuthenticationEventsStart + 21;
+
+
+        //////////////////////////////////////////////////////
+        /// Registration related events
+        //////////////////////////////////////////////////////
+        private const int RegistrationEventsStart = 1100;
+        public const int UserRegisterSuccess = RegistrationEventsStart + 2;
+        public const int UserRegisterFailure = RegistrationEventsStart + 3;
 
         //////////////////////////////////////////////////////
         /// Token related events
