@@ -17,5 +17,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.5"/>
     <PackageReference Include="Serilog.Enrichers.Thread" Version="3.2.0-dev-00750"/>
     <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0-dev-00784"/>
+    <PackageReference Include="Serilog.Sinks.SQLite" Version="5.0.0"/>
+    <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="8.5.0-alpha0003"/>
   </ItemGroup>
 </Project>

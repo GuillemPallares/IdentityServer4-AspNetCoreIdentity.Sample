@@ -19,7 +19,7 @@ namespace IdentityServerHost
     {
         public static int Main(string[] args)
         {
-            Log.Logger = new ConsoleEventSink()._log;
+            Log.Logger = new ElasticSearchEventSink()._log;
 
             try
             {

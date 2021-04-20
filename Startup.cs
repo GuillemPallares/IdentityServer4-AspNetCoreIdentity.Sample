@@ -62,7 +62,8 @@ namespace IdentityServerHost
             services.AddTransient<ISmsSender, AuthMessageSender>();
             
             // services.AddScoped<IEventSink, ConsoleEventSink>();
-            services.AddScoped<IEventSink, WritoTofileEventSink>();
+            services.AddScoped<IEventSink, ElasticSearchEventSink>();
+            //services.AddScoped<IEventSink, WritoTofileEventSink>();
 
 
             services.AddAuthentication()
