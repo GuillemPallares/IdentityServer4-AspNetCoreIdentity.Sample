@@ -7,7 +7,7 @@ using IdentityServer4.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace IdentityServer4.Events
+namespace IdentityServerHost.Events.Infraestructure
 {
     /// <summary>
     /// Models base class for events raised from IdentityServer.
@@ -122,6 +122,7 @@ namespace IdentityServer4.Events
         /// </value>
         public string RemoteIpAddress { get; set; }
 
+        /*
         /// <summary>
         /// Obfuscates a token.
         /// </summary>
@@ -142,6 +143,6 @@ namespace IdentityServer4.Events
         public override string ToString()
         {
             return LogSerializer.Serialize(this);
-        }
+        } */
     }
 }

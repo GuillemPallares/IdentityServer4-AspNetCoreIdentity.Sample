@@ -3,14 +3,13 @@
 
 
 using IdentityModel;
-using IdentityServer4.Events;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
-using IdentityServer4.Services;
+using IdentityServerHost.Events.Infraestructure;
+using IdentityServerHost.Services;
 using IdentityServer4.Stores;
 using IdentityServerHost.Models;
 using IdentityServerHost.Models.Account;
-using IdentityServerHost.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -20,6 +19,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityServerHost.Events;
 
 namespace IdentityServerHost.Controllers
 {
@@ -32,7 +32,7 @@ namespace IdentityServerHost.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
 
-        private readonly IIdentityServerInteractionService _interaction;
+        private readonly IdentityServer4.Services.IIdentityServerInteractionService _interaction;
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IEventService _events;
@@ -42,7 +42,7 @@ namespace IdentityServerHost.Controllers
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            IIdentityServerInteractionService interaction,
+            IdentityServer4.Services.IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events)

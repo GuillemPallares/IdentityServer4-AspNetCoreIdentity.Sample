@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using static IdentityServerHost.Constants;
+using IdentityServerHost.Events.Infraestructure;
 
 namespace IdentityServerHost.Events
 {
@@ -35,7 +35,7 @@ namespace IdentityServerHost.Events
             }
             else
             {
-                Endpoint = EndpointNames.Token;
+                Endpoint = "Token";
             }
         }
 

@@ -3,7 +3,7 @@
 
 #pragma warning disable 1591
 
-namespace IdentityServer4.Events
+namespace IdentityServerHost.Events.Infraestructure
 {
     public static class EventIds
     {

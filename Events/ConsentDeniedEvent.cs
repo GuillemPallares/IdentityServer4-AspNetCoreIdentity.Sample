@@ -3,6 +3,7 @@
 
 
 using System.Collections.Generic;
+using IdentityServerHost.Events.Infraestructure;
 
 namespace IdentityServerHost.Events
 {

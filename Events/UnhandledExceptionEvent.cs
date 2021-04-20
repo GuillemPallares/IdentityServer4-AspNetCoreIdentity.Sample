@@ -3,6 +3,7 @@
 
 
 using System;
+using IdentityServerHost.Events.Infraestructure;
 
 namespace IdentityServerHost.Events
 {

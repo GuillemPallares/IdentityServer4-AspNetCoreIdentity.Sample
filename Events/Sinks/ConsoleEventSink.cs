@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
-using IdentityServer4.Events;
-using IdentityServer4.Services;
+using IdentityServerHost.Events.Infraestructure;
+using IdentityServerHost.Services;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;

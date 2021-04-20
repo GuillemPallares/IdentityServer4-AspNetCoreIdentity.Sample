@@ -3,9 +3,10 @@
 
 
 using IdentityServer4;
-using IdentityServer4.Services;
+//using IdentityServer4.Services;
 using IdentityServerHost.Data;
 using IdentityServerHost.Events.Sinks;
+using IdentityServerHost.Events.Infraestructure;
 using IdentityServerHost.Models;
 using IdentityServerHost.Services;
 using Microsoft.AspNetCore.Builder;
