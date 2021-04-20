@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/GuillemPallares/IdentityServer4-AspNetCoreIdentity.Sample/compare/v0.0.6...v0.0.7) (2021-04-20)
+
+
+### Features
+
+* **Events:** Added Events for better control outside IS4. ([f115800](https://github.com/GuillemPallares/IdentityServer4-AspNetCoreIdentity.Sample/commit/f11580022e2fc106d1122b51407d4fa54f710564))
+* **Events:** Added Registration Events. ([cb9e8f4](https://github.com/GuillemPallares/IdentityServer4-AspNetCoreIdentity.Sample/commit/cb9e8f49668c1a3c8b3524541ad4ba9ea401a485))
+* **Logger:** Added EleasticSearch and SQLite EventSinks. ([a41a707](https://github.com/GuillemPallares/IdentityServer4-AspNetCoreIdentity.Sample/commit/a41a707f37b5196512b509bd17ef8a2d7014b96c))
+
 ### [0.0.6](https://github.com/GuillemPallares/IdentityServer4-AspNetCoreIdentity.Template/compare/v0.0.5...v0.0.6) (2021-04-18)
 
 
