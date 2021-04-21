@@ -91,7 +91,7 @@ namespace IdentityServerHost
 
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
-            
+            services.AddTransient<IEventService, DefaultEventService>();
             
             // services.AddScoped<IEventSink, ConsoleEventSink>();
             services.AddScoped<IEventSink, ElasticSearchEventSink>();
