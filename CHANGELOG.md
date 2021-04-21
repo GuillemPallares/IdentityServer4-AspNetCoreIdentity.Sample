@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.8](https://github.com/GuillemPallares/IdentityServer4-AspNetCoreIdentity.Sample/compare/v0.0.7...v0.0.8) (2021-04-21)
+
+
+### Features
+
+* Added EntityFramework DbContexts. ([be56827](https://github.com/GuillemPallares/IdentityServer4-AspNetCoreIdentity.Sample/commit/be5682742e470827830450270054d8fd83e6798b))
+
+
+### Bug Fixes
+
+* **Events:** rm duplicity btwn IS4 and Project. ([4438f4f](https://github.com/GuillemPallares/IdentityServer4-AspNetCoreIdentity.Sample/commit/4438f4f51d8f85da178ef71895d2cbf8e024863e))
+
 ### [0.0.7](https://github.com/GuillemPallares/IdentityServer4-AspNetCoreIdentity.Sample/compare/v0.0.6...v0.0.7) (2021-04-20)
 
 
