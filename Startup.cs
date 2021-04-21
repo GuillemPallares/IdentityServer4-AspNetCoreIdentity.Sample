@@ -15,7 +15,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using Microsoft.Extensions.Hosting;
+using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServerHost.Services.Default;
 
 namespace IdentityServerHost
 {
@@ -24,20 +27,38 @@ namespace IdentityServerHost
         public IWebHostEnvironment Environment { get; }
         public IConfiguration Configuration { get; }
 
+        private string _connectionString {get; set;}
+
         public Startup(IWebHostEnvironment environment, IConfiguration configuration)
         {
             Environment = environment;
             Configuration = configuration;
+            _connectionString = Configuration.GetConnectionString("DefaultConnection");
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                    .AddNewtonsoftJson(
+                            options =>
+                                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                            );
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlite(_connectionString)
+                );
+            services.AddDbContext<ConfigurationDbContext>(options =>
+                options.UseSqlite(_connectionString)
+                );
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => 
+                {
+                    options.User.RequireUniqueEmail = true;
+                    options.Password.RequiredLength = 8;
+                    options.Password.RequireDigit = true;
+                    // TODO: Set it.
+                    // options.Stores.ProtectPersonalData = true;
+                })  
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -50,17 +71,27 @@ namespace IdentityServerHost
 
                 // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                 options.EmitStaticAudienceClaim = true;
-            })
-                .AddInMemoryIdentityResources(Config.IdentityResources)
-                .AddInMemoryApiScopes(Config.ApiScopes)
-                .AddInMemoryClients(Config.Clients)
-                .AddAspNetIdentity<ApplicationUser>();
+            }).AddAspNetIdentity<ApplicationUser>()
+                // this adds the config data from DB (clients, resources, CORS)
+                .AddConfigurationStore(options =>
+                {
+                    options.ConfigureDbContext = builder => builder.UseSqlite(_connectionString);
+                })
+                // this adds the operational data from DB (codes, tokens, consents)
+                .AddOperationalStore(options =>
+                {
+                    options.ConfigureDbContext = builder => builder.UseSqlite(_connectionString);
+
+                    // this enables automatic token cleanup. this is optional.
+                    options.EnableTokenCleanup = true;
+                });
 
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
 
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            
             
             // services.AddScoped<IEventSink, ConsoleEventSink>();
             services.AddScoped<IEventSink, ElasticSearchEventSink>();
@@ -80,7 +111,7 @@ namespace IdentityServerHost
                 });
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, UserManager<ApplicationUser> userManager)
         {
             if (Environment.IsDevelopment())
             {
@@ -91,8 +122,13 @@ namespace IdentityServerHost
             app.UseStaticFiles();
 
             app.UseRouting();
+
             app.UseIdentityServer();
+
             app.UseAuthorization();
+
+            SeedData.EnsureSeedData(_connectionString, userManager);
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
